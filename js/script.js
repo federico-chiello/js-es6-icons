@@ -111,14 +111,87 @@ $(document).ready(function(){
 
   // Ci serve anche creare un altro array vuoto in cui pushare come elementi i diversi tipi che troviamo in icons, attraverso un forEach.
   // Questo passaggio ci permetterà successivamente di confrontare gli indici tra l'array tipi e colori.
+  const tipiIcone = arrayTipi (icone);
+  console.log(tipiIcone);
+
+  // si deve usare map per poter aggiugnere il colore alle icone.
+  const coloreIcone = icone.map((element) => {
+    const indiceTipo = tipiIcone.indexOf(element.type);
+    return{
+      ...element,
+      color: colori[indiceTipo]
+    }
+  });
+
+  const box = $('.icons');
+  stampaIcone (coloreIcone, box);
+
+  const select = $('#type');
+  stampaOpzione (tipiIcone, select);
+
+// Change serve per intercettare il cambiamento della select, prendendo il valore selezionato.
+  select.change(function(){
+    const selected = $(this).val();
+    const iconaFiltrata = filterValue (coloreIcone, selected);
+    stampaIcone(iconaFiltrata, box);
+  });
+
+});
+
+
+
+
+// ******** Funzioni ********
+
+// Funzione che permette di filtrare le icone.
+function filterValue (array, type){
+  const filteredIcon = array.filter((element) => {
+    return element.type == type;
+  });
+  if (filteredIcon.length > 0) {
+    return filteredIcon;
+  }
+
+  return array;
+};
+// Funzione che serve per aggiungere altre opzioni nel select.
+function stampaOpzione (array, select){
+  array.forEach((item) => {
+    select.append(
+      `
+      <option value="${item}">${item}</option>
+      `);
+  });
+
+}
+
+// Funzione che serve per aggiungere altri box delle varie icone, senza doverle scrivere nell'html.
+function stampaIcone (array, box){
+  box.html('');
+  array.forEach((item) => {
+    const {name, prefix, type, family, color} = item;
+    box.append(
+      `
+      <div class="box-icon">
+        <i class="${family} ${prefix}${name}" style="color: ${color}"></i>
+        <div class="test">${name.toUpperCase()}</div>
+      </div>
+      `
+    );
+  });
+
+}
+
+
+// Creiamo una funzione che serve per popolare con i types delle icone l'array che abbiamo creato.
+function arrayTipi (array){
   const tipi = [];
 
-  icone.forEach((item) => {
+  array.forEach((item) => {
     // Se non include lo stesso item.type allora lo puoi pushare.
     if (!tipi.includes(item.type)) {
       tipi.push(item.type);
     }
   });
-  console.log(tipi);
-
-});
+  return tipi;
+}

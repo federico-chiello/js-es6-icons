@@ -41,6 +41,10 @@ header .header-bottom label {
 }
 
 /* Main */
+main {
+
+}
+
 main .icons {
   display: flex;
   justify-content: space-between;
