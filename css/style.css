@@ -7,3 +7,15 @@
 body {
   font-family: 'Rubik', sans-serif;
 }
+
+.container {
+  height: 100vh;
+  width: 100%;
+  background-color: lightblue;
+}
+
+header .header-top{
+  height: 80px;
+  background-color: white;
+  color: #29b1dd;
+}
