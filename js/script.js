@@ -5,7 +5,9 @@
 // Utilizzate forEach, map e filter e cercate di strutturare tutto con le funzioni.
 
 $(document).ready(function(){
-  const icons = [
+
+  // Creiamo un array di oggetti di icone.
+  const icone = [
     {
       name: 'cat',
       prefix: 'fa-',
@@ -69,7 +71,7 @@ $(document).ready(function(){
     {
       name: 'lemon',
       prefix: 'fa-',
-      type: 'veetable',
+      type: 'vegetable',
       family: 'fas',
     },
     {
@@ -103,4 +105,20 @@ $(document).ready(function(){
       family: 'fas',
     }
   ];
+
+  // Dobbiamo creare un altro array in cui inserire i colori che poi daremo alle varie categori di icone.
+  const colori = ['blue', 'orange', 'purple'];
+
+  // Ci serve anche creare un altro array vuoto in cui pushare come elementi i diversi tipi che troviamo in icons, attraverso un forEach.
+  // Questo passaggio ci permetterà successivamente di confrontare gli indici tra l'array tipi e colori.
+  const tipi = [];
+
+  icone.forEach((item) => {
+    // Se non include lo stesso item.type allora lo puoi pushare.
+    if (!tipi.includes(item.type)) {
+      tipi.push(item.type);
+    }
+  });
+  console.log(tipi);
+
 });
