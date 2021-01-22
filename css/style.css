@@ -14,8 +14,33 @@ body {
   background-color: lightblue;
 }
 
+/* Header */
 header .header-top{
   height: 80px;
+  font-family: 'Acme', sans-serif;
   background-color: white;
   color: #29b1dd;
+  font-size: 270%;
+  padding: 30px;
+}
+
+header .header-bottom{
+  height: 80px;
+  background-color: #29b1dd;
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+header .header-bottom label {
+  padding: 10px;
+}
+
+/* Main */
+main .icons {
+  display: flex;
 }
