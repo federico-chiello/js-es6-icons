@@ -114,8 +114,54 @@ $(document).ready(function(){
   const gruppoUtenti = icone.filter((element) => element.type == 'user');
   console.log(gruppoUtenti);
 
+  // Creo un nuovo array in cui inserisco i colori che poi si dovranno aggiungere ai tre gruppi.
+  const color = ['blue', 'orange', 'purple'];
+
+  // Metto l'elemento colore ad ogni gruppo di array.
+  gruppoAnimali.forEach((item) => item.color = 'blue');
+  gruppoVerdure.forEach((item) => item.color = 'orange');
+  gruppoUtenti.forEach((item) => item.color = 'purple');
+
+
+
+// **** Metodo senza funzione ****
+// Utilizzo un forEach per poter mettere dopo .icons nell'html i vari box contenenti gli animali, le verdure e gli utenti colorati.
+  // icone.forEach((item) => {
+  //   const {name, family, prefix, type, color} = item;
+  //   $('.icons').append(
+  //     `
+  //     <div class="box-icon">
+  //       <i class="${family} ${prefix}${name}" style="color: ${color}"></i>
+  //       <div class="test">${name.toUpperCase()}</div>
+  //     </div>
+  //     `
+  //   );
+  // });
+
+// ***** Metodo con la funzione  richiamata *****
+  const boxIcon = $('.icons');
+  colorBox(icone, boxIcon);
+
+
+
+
 
 
 
 
 });
+
+
+// ***** Funzioni *****
+function colorBox(array, div) {
+  array.forEach((item) => {
+    const {name, family, prefix, type, color} = item;
+    div.append(
+      `
+      <div class="box-icon">
+        <i class="${family} ${prefix}${name}" style="color: ${color}"></i>
+        <div class="test">${name.toUpperCase()}</div>
+      </div>
+      `)
+    });
+}
