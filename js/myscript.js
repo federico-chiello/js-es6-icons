@@ -108,11 +108,11 @@ $(document).ready(function(){
 
   // (2) Utilizzo il filter per creare tre nuovi array divisi per tipo: gli animali, le verdure e gli utenti.
   const gruppoAnimali = icone.filter((element) => element.type == 'animal');
-  console.log(gruppoAnimali);
+  // console.log(gruppoAnimali);
   const gruppoVerdure = icone.filter((element) => element.type == 'vegetable');
-  console.log(gruppoVerdure);
+  // console.log(gruppoVerdure);
   const gruppoUtenti = icone.filter((element) => element.type == 'user');
-  console.log(gruppoUtenti);
+  // console.log(gruppoUtenti);
 
   // (3) Creo un nuovo array in cui inserisco i colori che poi si dovranno aggiungere ai tre gruppi.
   const color = ['blue', 'orange', 'purple'];
@@ -142,31 +142,46 @@ $(document).ready(function(){
 
   // (5) Inserisco le altre opzioni del select.
   const select = $('#type');
-  // Faccio un nuovo array dove inserisco i tipi da filtrare.
+  // // Faccio un nuovo array dove inserisco i tipi da filtrare.
   const filtraTipo = ['Animal', 'Vegetable', 'User'];
-  filtraTipo.forEach((item) => {
-    select.append(`
-      <option value="${item}">${item}</option>
-      `)
+  // **** Metodo senza funzione ****
+  // filtraTipo.forEach((item) => {
+  //   select.append(`
+  //     <option value="${item}">${item}</option>
+  //     `)
+  // });
+  // ***** Metodo con la funzione richiamata *****
+  selezioneTipo(filtraTipo, select);
+
+  // (6) Utilizzo Change per intercettare il cambiamento della select, prendendo il valore selezionato.
+  let gruppiUniti = [...gruppoAnimali,...gruppoVerdure,...gruppoUtenti]; // operatore Spread per unire i tre array in un nuovo array.
+  // console.log(mergedArray);
+  select.change(function(){
+    const selezione = $(this).val();
+    if (selezione === 'Animal') {
+      $('.icons').html('');
+      colorBox(gruppoAnimali, boxIcone);
+    } else if (selezione === 'Vegetable') {
+      $('.icons').html('');
+      colorBox(gruppoVerdure, boxIcone);
+    } else if (selezione === 'User') {
+      $('.icons').html('');
+      colorBox(gruppoUtenti, boxIcone);
+    } else {
+      $('.icons').html('');
+      colorBox(gruppiUniti, boxIcone);
+    }
   });
-
-
-
-
-
-
-
-
-
 });
 
 
 // ***** Funzioni *****
 // funzione che permette di creare con il template literal i vari box colorati dei tre gruppi.
-function colorBox(array, div) {
+function colorBox(array, box) {
   array.forEach((item) => {
+    // destrutturazione
     const {name, family, prefix, type, color} = item;
-    div.append(
+    box.append(
       `
       <div class="box-icon">
         <i class="${family} ${prefix}${name}" style="color: ${color}"></i>
@@ -174,4 +189,13 @@ function colorBox(array, div) {
       </div>
       `)
     });
+}
+
+// funzione che permette di creare con il template literal le altre opzioni del select.
+function selezioneTipo(array, select){
+  array.forEach((item) => {
+    select.append(`
+      <option value="${item}">${item}</option>
+      `)
+  });
 }
